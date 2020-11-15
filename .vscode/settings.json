@@ -1,0 +1,6 @@
+{
+    "python.linting.pylintEnabled": false,
+    "python.linting.pylamaEnabled": true,
+    "python.linting.enabled": false,
+    "python.pythonPath": "C:\\Users\\lautaro\\AppData\\Local\\Programs\\Python\\Python38-32\\python.exe"
+}

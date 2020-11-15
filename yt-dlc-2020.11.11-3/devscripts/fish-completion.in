@@ -1,0 +1,5 @@
+
+{{commands}}
+
+
+complete --command youtube-dlc --arguments ":ytfavorites :ytrecommended :ytsubscriptions :ytwatchlater :ythistory"

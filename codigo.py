@@ -1,0 +1,21 @@
+SPOTIFY_CLIENT_ID = '3292435de433462e94b8cd41f52c56d1'
+SPOTIFY_SECRET_KEY = '1ef25093520b4548aa1729ab296e17e8'
+CODE = 'AQBIzElDHrSa9ySFmxBcy0qq5bHe3Ehe8UfuxiIT0Z5CGfhe5gj4R5X_fs2p2CHtHzI8qbxrqRx9lFxQuwKFRbKd2FXczBI4SRzg2VP63tEpKZyoRN7JmRpucivyM_bZaUmUFu_hg5oakj0W9_uZG-X6mqgDePrgWXT79bGAJYoaOzKg8xszHBQOxdFA1mfc-kA'
+URL = "https://accounts.spotify.com/authorize?client_id=3292435de433462e94b8cd41f52c56d1&response_type=code&redirect_uri=https%3A%2F%2Fwww.google.com&scope=playlist-modify-public"
+"""
+AUTH_CODE = 'BQBbpYlbRsMiEfWEOLunMvQhEh5Zn4L8nItym6BOGav9BR_ZjAnrpaClA7MMOsQxMg-tZSQVs3qJnEBLHp9W4U9q5bjUdAcvOwjXyMMkVYZqFMHIQlOhXVNtVFH1SfMP1AdBh6HcSXNb6pCmN1_FmJTTkIzxYkhinUxzFvBiyKH4Y_n7GkULm2mizsU3iKyyxH77gNbo0_T-d1BR1JuJRF84bn3t7geq2chmyIU6GZ_7'
+
+URL = "https://accounts.spotify.com/authorize?client_id=3292435de433462e94b8cd41f52c56d1&response_type=code&redirect_uri=https%3A%2F%2Fwww.google.com&scope=playlist-modify-public"
+
+
+
+curl -H "Authorization: Basic MzI5MjQzNWRlNDMzNDYyZTk0YjhjZDQxZjUyYzU2ZDE6MWVmMjUwOTM1MjBiNDU0OGFhMTcyOWFiMjk2ZTE3ZTg" -d grant_type=authorization_code -d code=AQA-_UBHMi60TB2jUcFwQucOIG6bj3A5UjzAbxygV5Gpw9XzKQejZ-FHRy5CGIf_0YTJDHDA5WvUqM6Ob5bPI9_BT9KOoSCI13IDOnEwPbuvwID_7RLK2ZjXPmiFRH7JeeRyMIVd8OdzELGSEQ4xdAGw0EZhbxrWOr2MuWMezPdm6RYl6W3j2LuvZHfrBjQw5rg -d redirect_uri=https%3A%2F%2Fwww.google.com https://accounts.spotify.com/api/token
+
+
+"access_token":"BQBNA9f-NCSZrgaWUCowioxTP2HY7f9dewmRyN71IYN1WwxmX--KJd7YRdUTZclK7HdrOjNOWKElmGpZrumXD1co1iMkhvcFOo5O08Fd8x1GZt-_fc1gTKdKdPoqaXgg8Pa05gihzQ-jZKewFxeCEBjO7A_rRKK0wBEfPZqo"
+
+
+curl -X "GET" "https://api.spotify.com/v1/search?q=abba&type=track&market=US" -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Bearer BQCNwVeNw5iYlQBthO0GHLreHnJ6qbSBFQzchf6DF9pKo7xorAhoUIKFezPPoUG4RmZO8Mr9o83bfWCRKf0Xlc6UEt--JrkujrOp7XPkT0gYYZamzDMUgkn8hwcBSgEe6EMq8uKqxP5N6BGfXYIUmBJrWt7VqN6Z3lIY8kj7UNvccORZDLNAJ5WSTgAbQ9ZgdsLXivNTdv7UJY5qJNrl6tuyVuDUT5xYg3xuwcg7AQlYEv05ZRi-VAU2O_5skqS1NyV7lcuRDQ
+
+
+"""
