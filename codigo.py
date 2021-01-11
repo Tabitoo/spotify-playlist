@@ -1,5 +1,6 @@
 SPOTIFY_CLIENT_ID = '3292435de433462e94b8cd41f52c56d1'
 SPOTIFY_SECRET_KEY = '1ef25093520b4548aa1729ab296e17e8'
+YOUTUBE_DEVELOPER_KEY = 'AIzaSyDIk_jiykq54JAWso0RJ0aHP5Q6W2g5CyI'
 CODE = 'AQBIzElDHrSa9ySFmxBcy0qq5bHe3Ehe8UfuxiIT0Z5CGfhe5gj4R5X_fs2p2CHtHzI8qbxrqRx9lFxQuwKFRbKd2FXczBI4SRzg2VP63tEpKZyoRN7JmRpucivyM_bZaUmUFu_hg5oakj0W9_uZG-X6mqgDePrgWXT79bGAJYoaOzKg8xszHBQOxdFA1mfc-kA'
 URL = "https://accounts.spotify.com/authorize?client_id=3292435de433462e94b8cd41f52c56d1&response_type=code&redirect_uri=https%3A%2F%2Fwww.google.com&scope=playlist-modify-public"
 """

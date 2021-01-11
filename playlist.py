@@ -2,7 +2,11 @@ import requests
 from spotify_client import SpotifyClient
 from codigo import SPOTIFY_CLIENT_ID
 from codigo import SPOTIFY_SECRET_KEY
+from codigo import YOUTUBE_DEVELOPER_KEY
 from spotify_client.config import Config
+from googleapiclient.discovery import build
+import json
+import youtube_dl
 
 
 
@@ -18,7 +22,7 @@ client = SpotifyClient(SPOTIFY_CLIENT_ID, SPOTIFY_SECRET_KEY, identifier='test-s
 
 def createPlaylist(token, user_id, playlist_name):
     """
-    Token = Recibe el auth_code el cual es el token de spotify del usuario -
+    Token = Recibe el auth_code el cual es el token de spotify del usuario -> string
     User_id = recibe el el nombre de usuario de la cuenta de spotify -> string
     Playlist_name = El nombre de la platlist -> string
 
@@ -70,13 +74,21 @@ def refreshToken(newToken):
     except:
         print("Error al pedir el")
 
-def busqueda(track,artist,key):
+def busqueda(track,artist,token):
+
+    """
+    track: recibe el nombre de la cancion -> string
+    artist: recibe el nombre del artista -> string
+    Token = Recibe el auth_code el cual es el token de spotify del usuario -> string
+
+    
+    """
     try:
         query = "https://api.spotify.com/v1/search?q=track:{}%20artist:{}&type=track&market=US".format(track,artist)
 
         response = requests.get(query, headers={
             "Content-Type": "application/json",
-             "Authorization": "Bearer " + key
+             "Authorization": "Bearer " + token
              
              })
 
@@ -109,3 +121,69 @@ def busqueda(track,artist,key):
 
 
 """Youtube"""
+
+#configuracion y conexion 
+
+youtube = build('youtube', 'v3', developerKey=YOUTUBE_DEVELOPER_KEY)
+
+# Consigue todas las playlist del ususario 
+
+def getUserPlaylist(channelid):
+    #Probar este codigo generando una biblioteca en vez de una lista
+    playlists = []
+    request  = youtube.playlists().list(
+    part='contentDetails, snippet', 
+    channelId=channelid
+    )
+
+    playlistList = request.execute()
+
+    for nombres in playlistList['items']:
+        dataPlaylist = {}
+        dataPlaylist["playlist_name"] = nombres['snippet']['title']
+        dataPlaylist["playlist_id"] = nombres['id']
+        playlists.append(dataPlaylist)
+    return playlists
+
+
+def selectPlaylist(userPlaylists, playlist):
+    for nombres in userPlaylists:
+        if nombres['playlist_name'] == playlist:
+            return(nombres['playlist_id'])
+            break
+    else:
+        print('no se encontro esa playlist')
+
+
+def getPlaylistSongs(idPlaylist):
+    list = []
+    songsName = []
+
+    request  = youtube.playlistItems().list(
+    part='snippet, id',
+    playlistId=idPlaylist,
+    maxResults= 100,
+    )
+
+    playlistitems = request.execute()
+
+    for items in playlistitems['items']:
+        list.append(items['snippet']['resourceId']['videoId'])
+    
+    
+    for videoId in list:
+        video = youtube_dl.YoutubeDL({}).extract_info("https://www.youtube.com/watch?v=" + videoId, download=False, extra_info={})
+        songsName.append(video["track"])
+    
+    return songsName
+
+
+      
+    
+    
+
+
+
+
+
+
