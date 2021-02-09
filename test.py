@@ -8,9 +8,6 @@ import playlist
 import requests
 import youtube_dl
 import youtube_dl.utils
-codigo = "AQACwVi0Y3Wuf-EglNV7JILucq6U5-6c47tVfs0Iqe3zYvLA1KrbMVIWTQ8TqhLe2bSqiB1LQOkLuecUqVrnt9bgfofTCJLEOIanAmyCJBv4qTUg_pCU48QXvINYIVOLwXkLUmTTn450hJAw12K6_B6ZePw87WEvrfKnH01Ayu3P48pDEIWUx4Jse7kmnQEAx7o"
-
-
 
 #youtube_dl.utils.std_headers['User-Agent'] = 'facebookexternalhit/1.1 (+http://www.facebook.com/externalhit_uatext.php)'
 
@@ -37,7 +34,7 @@ codigo = "AQACwVi0Y3Wuf-EglNV7JILucq6U5-6c47tVfs0Iqe3zYvLA1KrbMVIWTQ8TqhLe2bSqiB
 
 
 
-tokenS = playlist.accessTokens(codigo,'https://www.google.com')
+
 
 
 
@@ -48,12 +45,39 @@ tokenS = playlist.accessTokens(codigo,'https://www.google.com')
 
 
 
-
 while True:
+    print('"""  YOUTUBE """')
+    idCanal = input('Porfavor ingrese el id se su canal: ')
 
+    playlists = playlist.getUserPlaylist(idCanal)
+
+
+    namePlaylist = input('Por favor ahora escriba el nombre de la playlist que desea usar: ')
+
+    selectedPlaylist = playlist.selectPlaylist(playlists, namePlaylist)
+
+    songNames = playlist.getPlaylistSongs(selectedPlaylist)
+
+    print('"""Spotify """')
+
+    
+    
     name = input("Ingrese su nombre de usuario de spotify: ")
     playlistName = input("Elija un nombre para la playlist: ")
-    playlist.createPlaylist(tokenS['access_token'],name,playlistName)
-    datos = playlist.busqueda(q,dataType)
-    print(datos)
+    print('autorize a la aplicacion a traves del siguiente link, una vez que sea redirigido, copie en el url la parte que dice "code="')
+    print("https://accounts.spotify.com/authorize?client_id=3292435de433462e94b8cd41f52c56d1&response_type=code&redirect_uri=https%3A%2F%2Fwww.google.com&scope=playlist-modify-public")
+    codigo = input('Porfavor introduzca el codigo de autorizacion: ')
+
+    tokenS = playlist.accessTokens(codigo,'https://www.google.com')
+
+    
+    playlistUri = playlist.createPlaylist(tokenS['access_token'],name,playlistName)
+    
+    canciones = playlist.search(songNames,tokenS['access_token'])
+
+    playlist.playlist_songs(tokenS['access_token'],playlistUri,canciones)
+
+
+
     tokenS['access_token'] = playlist.refreshToken(tokenS['refresh_token'])
+

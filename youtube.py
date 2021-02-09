@@ -55,11 +55,12 @@ artist = video["artist"]
 print(song)
 print(artist)
 """
+"""
 playlistList = reques2.execute()
 playlistitems = reques3.execute()
 
 print(playlistitems)
-
+"""
 #forma de llegar al titulo de una playlist
 #print(playlistList['items'][0]['snippet']['title'])
 #print(request)
@@ -104,14 +105,23 @@ print(artists)
 """
 
 
-"""
-idVideo = playlistitems['items'][0]['snippet']['resourceId']['videoId']
+
+#idVideo = playlistitems['items'][0]['snippet']['resourceId']['videoId']
 
 
-url = "https://www.youtube.com/watch?v=" + idVideo 
+url = "https://www.youtube.com/watch?v=mH0_XpSHkZo" 
 video = youtube_dl.YoutubeDL({}).extract_info(url, download=False, extra_info={})
 
+song = video["track"]
+artist = video["artist"]
 
+print(song)
+print(artist)
+
+
+
+
+"""
 song = video["track"]
 artist = video["artist"]
 

@@ -29,8 +29,8 @@ def createPlaylist(token, user_id, playlist_name):
     """
 
     try:
-        client.create_playlist(token, user_id, playlist_name)
-        return print("Playlist creada")
+        return client.create_playlist(token, user_id, playlist_name)
+         
     except:
          print("Error al crear Playlist")
 
@@ -45,11 +45,14 @@ def playlist_songs(token, playlist_id, songs):
     Song = recibe una lista con las canciones que queremos agregar -> list
 
     """
+    #tiene que hacerlo un sola vez
+    
     try:
-        client.add_songs_to_playlist(token,playlist_id,songs)
-        return print("Canciones agregadas correctamente")
+        client.add_songs_to_playlist(token,playlist_id,songs) 
     except:
         return print("Error al agregar las canciones")
+
+    
 
 
 #Conseguir access token y refresh token
@@ -72,50 +75,39 @@ def refreshToken(newToken):
     try:
         return client.refresh_access_token(newToken)
     except:
-        print("Error al pedir el")
+        print("Error al pedir el refresh token")
 
-def busqueda(track,artist,token):
+
+def search(trackInfo,token):
 
     """
-    track: recibe el nombre de la cancion -> string
-    artist: recibe el nombre del artista -> string
+    trackInfo = recibe el nombre de la cancion y el artista, en un diccionario
     Token = Recibe el auth_code el cual es el token de spotify del usuario -> string
 
     
     """
-    try:
-        query = "https://api.spotify.com/v1/search?q=track:{}%20artist:{}&type=track&market=US".format(track,artist)
+    
+    songs = []
+    for track in trackInfo:
+      
+        query = "https://api.spotify.com/v1/search?q=track:{}%20NOT%20FuisteTu%20artist:{}&type=track&limit=1&offset=0&market=AR".format(track['track'],track['artist'])
 
         response = requests.get(query, headers={
             "Content-Type": "application/json",
-             "Authorization": "Bearer " + token
-             
-             })
+            "Authorization": "Bearer " + token
+                
+            })
 
         responseJSON =  response.json()
-        song = responseJSON["tracks"]["items"]
-        return song
-    except:
-        print("Error al realizar la busqueda")
+        #Intentar solucionar con range
+        #songs.append(responseJSON["tracks"]["items"])
+        for song in responseJSON["tracks"]["items"]:
+            songs.append(song['uri'])
 
-"""
-    try:
-        query = "https://api.spotify.com/v1/search?q=track:{}%20artist:{}&type=track&market=US".format(track,artist)
-
-        response = requests.get(query, headers={
-            "Content-Type": "application/json",
-             "Authorization": "Bearer " + key
-             
-             })
-
-        responseJSON =  response.json()
-        song = responseJSON["tracks"]["items"]
-        return song
-    except:
-        print("Error al realizar la busqueda")
-
-"""
-
+    return songs 
+        
+            
+       
 
 
 
@@ -172,18 +164,12 @@ def getPlaylistSongs(idPlaylist):
     
     
     for videoId in list:
+        videoInfo = {}
         video = youtube_dl.YoutubeDL({}).extract_info("https://www.youtube.com/watch?v=" + videoId, download=False, extra_info={})
-        songsName.append(video["track"])
+        videoInfo['track'] = video['track']
+        videoInfo['artist'] = video['artist']
+        songsName.append(videoInfo)
     
     return songsName
 
-
-      
-    
-    
-
-
-
-
-
-
+"""Copyright Lautaro Valdez 2020-2021"""
