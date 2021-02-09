@@ -10,7 +10,7 @@ import youtube_dl
 
 
 
-"""Spotify"""
+"""SPOTIFY"""
 
 #configuracion y conexion 
 
@@ -45,8 +45,7 @@ def playlist_songs(token, playlist_id, songs):
     Song = recibe una lista con las canciones que queremos agregar -> list
 
     """
-    #tiene que hacerlo un sola vez
-    
+
     try:
         client.add_songs_to_playlist(token,playlist_id,songs) 
     except:
@@ -57,11 +56,13 @@ def playlist_songs(token, playlist_id, songs):
 
 #Conseguir access token y refresh token
 
-auth = "AQAx2GkERp9wXm2shL2JrwR-2ZX6wG6jIE6lAdOERLVsypes3DTvG_UqiGWKVLkZ51eSGz4mkhSI9_OLIVqTaGxheC_Gm532MsEpV3DdcoMhSQI4eip9RE5gF89VR7pZbi4lAucvHNtz0UdMlJUgQd583rqMgheAjmz_iuP5IrHo5EAs-G_1PcIB-e1pAeVxxac"
-redirect = 'https://www.google.com'
-
-
 def accessTokens(code,url):
+    """
+    code = codigo de autorizacion para conseguir el access token -> string
+    url = url en donde va a ser redirigido el usuario una vez nos de permiso -> string
+    
+    """
+
     try:
         return client.get_access_and_refresh_tokens(code,url)
     except:
@@ -71,9 +72,13 @@ def accessTokens(code,url):
 
 
 
-def refreshToken(newToken):
+def refreshToken(refreshToken):
+    """
+    refreshToken = recibe el refresh Token dado en la funcion accessTokens para generar un nuevo token -> string
+    """
+
     try:
-        return client.refresh_access_token(newToken)
+        return client.refresh_access_token(refreshToken)
     except:
         print("Error al pedir el refresh token")
 
@@ -99,20 +104,15 @@ def search(trackInfo,token):
             })
 
         responseJSON =  response.json()
-        #Intentar solucionar con range
-        #songs.append(responseJSON["tracks"]["items"])
+       
         for song in responseJSON["tracks"]["items"]:
             songs.append(song['uri'])
 
     return songs 
         
-            
-       
 
 
-
-
-"""Youtube"""
+"""YOUTUBE"""
 
 #configuracion y conexion 
 
@@ -121,7 +121,11 @@ youtube = build('youtube', 'v3', developerKey=YOUTUBE_DEVELOPER_KEY)
 # Consigue todas las playlist del ususario 
 
 def getUserPlaylist(channelid):
-    #Probar este codigo generando una biblioteca en vez de una lista
+
+    """
+    channelId = id del canal del usuario -> string
+
+    """
     playlists = []
     request  = youtube.playlists().list(
     part='contentDetails, snippet', 
@@ -137,8 +141,17 @@ def getUserPlaylist(channelid):
         playlists.append(dataPlaylist)
     return playlists
 
+# Selecciona la playlisy a elegir por el usuario
 
 def selectPlaylist(userPlaylists, playlist):
+
+    """
+
+    userPlaylists = lista con todas las playlists en el canal de youtube del usuario -> List
+    playlist = nombre de una playlist especifica elegida por el usuario -> string
+
+    """
+
     for nombres in userPlaylists:
         if nombres['playlist_name'] == playlist:
             return(nombres['playlist_id'])
@@ -146,8 +159,14 @@ def selectPlaylist(userPlaylists, playlist):
     else:
         print('no se encontro esa playlist')
 
+# Consigue las canciones de la playlist
 
 def getPlaylistSongs(idPlaylist):
+    """
+    idPlaylist = Id de la playlist la cual queremos sacar las canciones -> String
+
+    """
+
     list = []
     songsName = []
 
