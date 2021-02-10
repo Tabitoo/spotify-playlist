@@ -39,6 +39,7 @@ def createPlaylist(token, user_id, playlist_name):
 #Add the songs 
 
 def playlist_songs(token, playlist_id, songs):
+
     """"
     Token = Recibe el auth_code el cual es el token de spotify del usuario -> string
     Playlist_id = Recibe el URI de la playlist -> string
@@ -57,6 +58,7 @@ def playlist_songs(token, playlist_id, songs):
 #Conseguir access token y refresh token
 
 def accessTokens(code,url):
+
     """
     code = codigo de autorizacion para conseguir el access token -> string
     url = url en donde va a ser redirigido el usuario una vez nos de permiso -> string
@@ -73,6 +75,7 @@ def accessTokens(code,url):
 
 
 def refreshToken(refreshToken):
+    
     """
     refreshToken = recibe el refresh Token dado en la funcion accessTokens para generar un nuevo token -> string
     """
@@ -153,7 +156,7 @@ def selectPlaylist(userPlaylists, playlist):
     """
 
     for nombres in userPlaylists:
-        if nombres['playlist_name'] == playlist:
+        if nombres['playlist_name'] == playlist:                     
             return(nombres['playlist_id'])
             break
     else:
